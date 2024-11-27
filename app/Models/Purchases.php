@@ -14,13 +14,11 @@ class Purchases extends Model
         'game_id'
     ];
 
-    // Relación con el usuario
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relación con el juego
     public function game()
     {
     return $this->belongsTo(Game::class, 'game_id');

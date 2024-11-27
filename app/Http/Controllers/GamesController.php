@@ -186,31 +186,24 @@ class GamesController extends Controller
 
     public function buy(int $id)
 {
-    // Obtener el juego con el id proporcionado
     $game = Game::findOrFail($id);
 
-    // Asegurarse de que el usuario esté autenticado
     $user = auth()->user();
 
-    // Verificar si el usuario ya ha comprado el juego
     if ($user->games->contains($game)) {
         return redirect()->route('games.view', ['id' => $game->id])
                          ->with('error', 'Ya has comprado este juego.');
     }
 
-    // Asociar el juego al usuario (registrar la compra)
     $user->games()->attach($game->id);
 
-    // Redirigir a la página de compra exitosa
     return redirect()->route('games.buy', ['id' => $game->id]);
 }
 
     public function buySuccess(int $id)
     {
-        // Obtener el juego comprado
         $game = Game::findOrFail($id);
 
-        // Mostrar la vista de compra exitosa
         return view('games.buy', ['game' => $game]);
     }
 

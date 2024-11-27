@@ -15,13 +15,11 @@ class MovieReservationConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
 
-    //version CPP
     public function __construct(
         public Game $game
     )
     {}
 
-    // Noten que estamos agregando el modificador de visibilidad (public) *dentro* del método constructor.
 
     /**
      * Get the message envelope.

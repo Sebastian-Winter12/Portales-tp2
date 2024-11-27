@@ -44,7 +44,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // Relación con las compras
     public function purchases()
     {
         return $this->hasMany(Purchases::class);

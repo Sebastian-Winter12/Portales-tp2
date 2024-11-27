@@ -30,7 +30,7 @@ class Game extends Model
 }
 
 
-    protected $primaryKey = 'game_id'; // Esto asegura que se use game_id como clave primaria
+    protected $primaryKey = 'game_id';
 
     public function casts()
     {

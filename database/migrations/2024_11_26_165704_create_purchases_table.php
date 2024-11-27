@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Columna user_id
-            $table->unsignedBigInteger('game_id'); // Columna game_id
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('game_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('game_id')->references('game_id')->on('games')->onDelete('cascade');
             $table->timestamps();

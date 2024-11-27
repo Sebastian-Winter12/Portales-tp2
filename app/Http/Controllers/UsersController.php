@@ -11,7 +11,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::all(); // Obtener todos los usuarios
+        $users = User::all();
 
         return view('users.index', [
             'users' => $users
@@ -49,13 +49,12 @@ class UsersController extends Controller
             'role.in' => 'El rol debe ser "user" o "admin".',
         ]);
 
-        // Crear el nuevo usuario
         $input = $request->only(['name', 'email', 'password', 'role']);
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
 
         return redirect()
-        ->route('users.view', ['id' => $user->id]) // Cambiado de users.index a users.view
+        ->route('users.view', ['id' => $user->id])
         ->with('feedback.message', 'El usuario se creó con éxito.');
     }
 
@@ -88,7 +87,7 @@ class UsersController extends Controller
         $input = $request->only(['name', 'email', 'role']);
 
         if ($request->filled('password')) {
-            $input['password'] = Hash::make($request->password); // Si se ingresa una nueva contraseña, se cifra
+            $input['password'] = Hash::make($request->password);
         }
 
         $user->update($input);
