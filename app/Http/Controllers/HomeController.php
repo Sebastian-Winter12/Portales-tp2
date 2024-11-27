@@ -11,13 +11,13 @@ class HomeController extends Controller
         return view('index');
     }
 
-    public function about()
+    public function store()
     {
-        return view ('about');
+        return view ('store');
     }
 
-    public function contact()
+    public function news()
     {
-        return view ('contact');
+        return view ('news');
     }
 }

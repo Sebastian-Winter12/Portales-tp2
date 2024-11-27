@@ -22,6 +22,13 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function games()
+{
+    return $this->belongsToMany(Game::class, 'purchases', 'user_id', 'game_id');
+}
+
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -31,6 +38,17 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    // Relación con las compras
+    public function purchases()
+    {
+        return $this->hasMany(Purchases::class);
+    }
 
     /**
      * Get the attributes that should be cast.
