@@ -29,7 +29,7 @@ class UsersController extends Controller
 
     public function createForm()
     {
-        return view('users.create-form');
+        return redirect()->route('users.create.form');
     }
 
     public function createProcess(Request $request)
@@ -38,18 +38,15 @@ class UsersController extends Controller
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
-            'role' => 'required|in:user,admin',
         ], [
             'name.required' => 'El nombre es obligatorio.',
             'email.required' => 'El correo electrónico es obligatorio.',
             'email.unique' => 'El correo electrónico ya está en uso.',
             'password.required' => 'La contraseña es obligatoria.',
             'password.confirmed' => 'Las contraseñas no coinciden.',
-            'role.required' => 'El rol es obligatorio.',
-            'role.in' => 'El rol debe ser "user" o "admin".',
         ]);
 
-        $input = $request->only(['name', 'email', 'password', 'role']);
+        $input = $request->only(['name', 'email', 'password']);
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
 

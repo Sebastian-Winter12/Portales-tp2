@@ -38,7 +38,7 @@ class Game extends Model
     }
 
 
-    protected $primaryKey = 'game_id';
+    protected $primaryKey = 'id';
 
     public function casts()
     {

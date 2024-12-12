@@ -20,6 +20,7 @@
                         <input type="password" id="password" name="password" class="form-controll">
                     </div>
                     <button type="submit" class="btn btn-primary">Ingresar</button>
+                    <a href="{{ route('users.create.form') }}" class="btn btn-primary">Crear Usuario</a>
                 </form>
             </div>
         </div>
