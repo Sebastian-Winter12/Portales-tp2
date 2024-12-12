@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class GamesController extends Controller
 {
-    // Muestra todos los juegos en la vista principal
     public function index()
     {
         $allGames = Game::with(['age'])->get();
@@ -19,7 +18,6 @@ class GamesController extends Controller
         ]);
     }
 
-    // Muestra los juegos en la vista de inicio
     public function home()
     {
         $allGames = Game::with(['age'])->get();
@@ -29,7 +27,7 @@ class GamesController extends Controller
         ]);
     }
 
-    // Muestra los detalles de un juego específico
+
     public function view(int $id)
     {
         $game = Game::with('age')->findOrFail($id);
@@ -39,11 +37,10 @@ class GamesController extends Controller
         ]);
     }
 
-    // Muestra el formulario de creación de un juego
     public function createForm()
     {
-        return view('games.create-form', [
-            'ages' => Age::all()
+        return view('games.create-form',[
+            'age' => Age::all()
         ]);
     }
 
@@ -55,111 +52,174 @@ class GamesController extends Controller
             'release_date' => 'required|date',
             'synopsis' => 'required|min:3|max:255',
             'game_type' => 'required|in:Un solo jugador,Multijugador,Cooperativo',
-            'age_fk' => 'required|exists:ages,age_id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|'
+        ], [
+            'title.required' => 'El título debe tener un valor',
+            'price.required' => 'El precio debe tener un valor',
+            'release_date.required' => 'La fecha de estreno debe tener un valor',
+            'synopsis.required' => 'La sinopsis debe tener un valor',
+            'game_type.required' => 'El tipo de juego debe ser seleccionado',
+            'game_type.in' => 'El tipo de juego debe ser uno de los siguientes: Un solo jugador, Multijugador, Cooperativo',
+            'image.image' => 'El archivo debe ser una imagen.',
+            'image.mimes' => 'El archivo debe estar en formato JPEG, PNG, JPG, GIF o SVG.',
+            'image.max' => 'La imagen no puede exceder los 2MB.'
         ]);
 
-        $input = $request->only([
-            'title', 'price', 'release_date', 'synopsis', 'game_type'
-        ]);
-        
-        $input['age_id'] = $request->input('age_fk');
-        
+        $input = $request->only(['title', 'price', 'release_date', 'synopsis', 'game_type', 'age_fk', 'age_id', 'abbreviation', 'image']);
 
-        if ($request->hasFile('image')) {
-            $input['image'] = $this->handleImageUpload($request);
+        try {
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('images', 'public');
+                $input['image'] = $path;
+            }
+
+            Game::create($input);
+
+            $feedbackMessage = 'El videojuego <b>"' . e($input['title']) . '"</b> se publicó con éxito.';
+            if (isset($input['image'])) {
+                $feedbackMessage .= ' La imagen se guardó correctamente.';
+            } else {
+                $feedbackMessage .= ' Sin imagen adjunta.';
+            }
+
+            return redirect()
+                ->route('games.index')
+                ->with('feedback.message', $feedbackMessage);
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withErrors('Ocurrió un error al intentar guardar el videojuego: ' . $e->getMessage());
         }
 
-        Game::create($input);
-
-        return redirect()
-            ->route('games.index')
-            ->with('feedback.message', 'El videojuego se creó con éxito.');
     }
 
-    // Muestra el formulario de edición de un juego
     public function editForm(int $id)
     {
         return view('games.edit-form', [
-            'game' => Game::findOrFail($id),
-            'ages' => Age::all()
+            'age' => Age::all(),
+            'game' => Game::findOrFail($id)
         ]);
     }
 
-    // Procesa la edición de un juego
     public function editProcess(int $id, Request $request)
     {
-        $game = Game::findOrFail($id);
-
         $request->validate([
             'title' => 'required|min:3|max:255',
             'price' => 'required|numeric',
             'release_date' => 'required|date',
             'synopsis' => 'required|min:3|max:255',
             'game_type' => 'required|in:Un solo jugador,Multijugador,Cooperativo',
-            'age_fk' => 'required|exists:ages,age_id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image' => 'nullable|image|max:5000'
+        ], [
+            'title.required' => 'El título debe tener un valor',
+            'price.required' => 'El precio debe tener un valor',
+            'release_date.required' => 'La fecha de estreno debe tener un valor',
+            'synopsis.required' => 'La sinopsis debe tener un valor',
+            'game_type.required' => 'El tipo de juego debe ser seleccionado',
+            'game_type.in' => 'El tipo de juego debe ser uno de los siguientes: Un solo jugador, Multijugador, Cooperativo',
+            'image.image' => 'El archivo debe ser una imagen.',
+            'image.max' => 'La imagen no puede exceder los 2MB.'
         ]);
 
-        $input = $request->only([
-            'title', 'price', 'release_date', 'synopsis', 'game_type'
-        ]);
-        
-        $input['age_id'] = $request->input('age_fk');
+        $input = $request->only(['title', 'price', 'release_date', 'synopsis', 'game_type']);
 
-        $input['image'] = $this->handleImageUpload($request, $game->image);
+        $game = Game::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            if ($game->image) {
+                Storage::disk('public')->delete($game->image);
+            }
+            $path = $request->file('image')->store('images', 'public');
+            $input['image'] = $path;
+        }
 
         $game->update($input);
 
         return redirect()
             ->route('games.index')
-            ->with('feedback.message', 'El videojuego se actualizó con éxito.');
+            ->with('feedback.message', 'El videojuego <b>"' . e($input['title']) . '"</b> se editó con éxito.');
     }
 
-    // Procesa la eliminación de un juego
+
     public function deleteProcess(int $id)
     {
         $game = Game::findOrFail($id);
 
         if ($game->image) {
-            $this->deleteImage($game->image);
+            Storage::disk('public')->delete($game->image);
         }
 
         $game->delete();
 
         return redirect()
             ->route('games.index')
-            ->with('feedback.message', 'El videojuego se eliminó con éxito.');
+            ->with('feedback.message', 'El videojuego <b>"' . e($game->title) . '"</b> se eliminó con éxito.');
     }
 
-    // Procesa la compra de un juego
+    protected function deleteImage($imagePath)
+    {
+    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+        Storage::disk('public')->delete($imagePath);
+    }
+    }
+
+
+    public function edit($id)
+    {
+        $game = Game::findOrFail($id);
+        return view('games.edit-form', compact('game'));
+    }
+
     public function buy(Game $game)
     {
         $user = auth()->user();
+
         $user->games()->attach($game->id);
 
-        return redirect()->route('games.view', $game)
-            ->with('success', 'Juego comprado exitosamente.');
+        return redirect()->route('games.buy', $game)->with('success', 'Juego comprado exitosamente.');
     }
 
-    // Maneja la subida de imágenes
-    protected function handleImageUpload(Request $request, $existingImage = null)
+
+
+protected function handleImageUpload(Request $request, $existingImage = null)
+{
+    if ($request->hasFile('image')) {
+        if ($existingImage) {
+            $this->deleteImage($existingImage);
+        }
+        return $request->file('image')->store('images', 'public');
+    }
+    return $existingImage;
+}
+
+
+
+    public function update(Request $request, $id)
     {
+        $game = Game::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'release_date' => 'required|date',
+            'game_type' => 'required|string',
+            'synopsis' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+        ]);
+
         if ($request->hasFile('image')) {
-            if ($existingImage) {
-                $this->deleteImage($existingImage);
+            if ($game->image && file_exists(public_path($game->image))) {
+                unlink(public_path($game->image));
             }
-            return $request->file('image')->store('images', 'public');
+
+            $imagePath = $request->file('image')->store('games_images', 'public');
+            $validatedData['image'] = $imagePath;
+        } else {
+            $validatedData['image'] = $game->image;
         }
 
-        return $existingImage;
-    }
+        $game->update($validatedData);
 
-    // Elimina una imagen almacenada
-    protected function deleteImage($imagePath)
-    {
-        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
-            Storage::disk('public')->delete($imagePath);
-        }
+        return redirect()->route('games.index')->with('success', 'Juego actualizado con éxito');
     }
 }
