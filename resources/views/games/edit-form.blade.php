@@ -67,7 +67,7 @@
                 <div class="mb-3">
                     <label for="age_fk" class="form-label">Clasificacion</label>
                         <select name="age_fk" id="age_fk" class="form-control">
-                            @foreach ($ages as $age)
+                            @foreach ($age as $age)
                                 <option value="{{ $age->age_id }}"
                                     @selected($age->age_id == old('age_fk', $game->age_fk))>
                                     {{ $age->name }} - {{ $age->abbreviation }}
