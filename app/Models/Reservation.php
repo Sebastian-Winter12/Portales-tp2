@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class Purchase extends Model
+class Reservation extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'game_id'
-    ];
+    protected $fillable = ['user_id', 'game_id'];
 
     public function user()
     {
@@ -21,7 +21,7 @@ class Purchase extends Model
 
     public function game()
     {
-    return $this->belongsTo(Game::class, 'game_id');
+        return $this->belongsTo(Game::class);
     }
-
 }
+

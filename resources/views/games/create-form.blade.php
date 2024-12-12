@@ -26,7 +26,7 @@
                         </div>
                     @enderror
                 </div>
-                
+
                 <div class="mb-3">
                     <label for="price" class="form-label">Precio</label>
                     <input type="text" name="price" id="price" class="form-control" value="{{ old('price') }}">
@@ -68,13 +68,11 @@
                             @foreach ($age as $age)
                                 <option value="{{ $age->age_id }}">
                                     {{ $age->name }} - {{ $age->abbreviation }}
-                                </option> 
+                                </option>
                             @endforeach
                         </select>
                 </div>
                 
-    </div>
-
                 <div class="mb-3">
                     <label for="image" class="form-label">Imagen</label>
                     <input type="file" name="image" id="image" class="form-control">
@@ -96,7 +94,7 @@
                         </div>
                     @enderror
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary">Publicar</button>
             </form>
         </div>

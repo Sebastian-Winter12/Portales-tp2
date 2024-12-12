@@ -2,6 +2,8 @@
 
 @section('title', $user->name)
 
+@section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -17,16 +19,26 @@
                 <dd>{{ $user->role }}</dd>
             </dl>
 
-            <h3>Compras Realizadas</h3>
-            <ul>
-                @foreach($user->purchases as $purchase)
-                    <li>
-                        {{ $purchase->game->title }} - ${{ $purchase->game->price }} 
-                        <small>({{ $purchase->created_at->format('d/m/Y') }})</small>
-                    </li>
-                @endforeach
-            </ul>
+            <hr class="mb-3">
 
+            <h2 class="mb-3">Compras realizadas</h2>
+            @if ($user->reservations->isEmpty())
+                <p class="text-muted">No hay compras registradas.</p>
+            @else
+                <ul class="list-group">
+                    @foreach ($user->reservations as $reservation)
+                    {{ dd($reservation) }}
+                        <li class="list-group-item">
+                            <strong>{{ $reservation->game->title }}</strong> -
+                            ${{ number_format($reservation->game->price, 2) }}<br>
+                            <small class="text-muted">Reserva realizada el: {{ $reservation->reservation_date->format('d/m/Y H:i') }}</small><br>
+                            <span class="badge bg-{{ $reservation->status == 'confirmed' ? 'success' : ($reservation->status == 'cancelled' ? 'danger' : 'warning') }}">
+                                {{ ucfirst($reservation->status) }}
+                            </span>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
     </div>
 </div>

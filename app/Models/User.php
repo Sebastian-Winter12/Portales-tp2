@@ -23,10 +23,21 @@ class User extends Authenticatable
     ];
 
     public function games()
-{
-    return $this->belongsToMany(Game::class, 'purchases', 'user_id', 'game_id');
-}
+    {
+        return $this->belongsToMany(Game::class, 'purchases', 'user_id', 'game_id');
+    }
 
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function reservedGames()
+{
+    return $this->belongsToMany(Game::class, 'reservations', 'user_id', 'game_id')
+                ->withPivot('reservation_date', 'status')
+                ->withTimestamps();
+}
 
 
     /**
@@ -46,7 +57,7 @@ class User extends Authenticatable
 
     public function purchases()
     {
-        return $this->hasMany(Purchases::class);
+        return $this->hasMany(Purchase::class);
     }
 
     /**

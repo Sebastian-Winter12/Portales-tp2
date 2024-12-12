@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ages', function (Blueprint $table) {
-            $table->tinyIncrements('age_id');
-            $table->string('name');
+            $table->unsignedTinyInteger('age_id')->primary(); // Consistencia en el tipo de dato y clave primaria
+            $table->string('name', 50);
             $table->char('abbreviation', 3);
-            
             $table->timestamps();
-        });
+        });        
     }
 
     /**
@@ -28,3 +27,4 @@ return new class extends Migration
         Schema::dropIfExists('ages');
     }
 };
+

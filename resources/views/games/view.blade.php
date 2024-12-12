@@ -29,18 +29,16 @@
 
             <hr class="mb-3">
 
-            @if(auth()->check() && !auth()->user()->games->contains($game))
-
-            <form action="{{ route('games.buy', ['id' => $game->id]) }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-primary">Comprar</button>
-            </form>
-
+            @if (auth()->check())
+                <form
+                    action="{{ route('games.reservation.process', ['id' => $game->game_id]) }}"
+                    method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-warning">Comprar</button>
+                </form>
+            @else
+                <p class="text-muted">Debes <a href="{{ route('login') }}">iniciar sesión</a> para comprar este videojuego.</p>
             @endif
-
-
-
-
         </div>
     </div>
 </div>

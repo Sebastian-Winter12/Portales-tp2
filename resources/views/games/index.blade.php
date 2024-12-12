@@ -29,9 +29,14 @@
                     @foreach ($games as $game)
                         <tr>
                             <td class="align-top">{{ $game->game_id }}</td>
-                            <td class="align-top"><img src="{{ Storage::url($game->image) }}" class="card-img-top"
+                            @if ($game->image)
+                                <td class="align-top"><img src="{{ Storage::url($game->image) }}" class="card-img-top"
                                 alt="{{ $game->title }}" class="img-fluid" 
                                 style="width: 150px; height: 80px; object-fit: cover;"></td>
+                                @else
+                                <p>No hay protada</p>
+                            @endif
+                            
                             <td class="align-top">{{ $game->title }}</td>
                             <td class="align-top">{{ $game->release_date }}</td>
                             <td class="align-top">{{ $game->price }}</td>

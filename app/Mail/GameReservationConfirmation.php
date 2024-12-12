@@ -2,24 +2,31 @@
 
 namespace App\Mail;
 
-use App\Models\Movie;
+use App\Models\Game;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class MovieReservationConfirmation extends Mailable
+class GameReservationConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
+
+    /**
+     * Create a new message instance.
+     */
+    // public function __construct(Game $game)
+    // {
+    //     $thid->game = $game;
+    // }
 
     public function __construct(
         public Game $game
     )
     {}
-
 
     /**
      * Get the message envelope.
@@ -27,8 +34,8 @@ class MovieReservationConfirmation extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirmación de Reserva del videojuego ',
-            from: new Address('no-responder@dvjuegos.com', 'DV Juegos')
+            subject: 'Confrimación de reserva de videojuego',
+            from: new Address('no-responder@DVideojuegos.com', 'DV Videojuegos'),
         );
     }
 
@@ -38,8 +45,8 @@ class MovieReservationConfirmation extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails/movie-reserve-confirmation',
-            text: 'emails/movie-reserve-confirmation-text',
+            view: 'emails/game-reserve-confirmation',
+            text: 'emails/game-reserve-confirmation-text',
         );
     }
 

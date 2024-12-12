@@ -19,15 +19,23 @@ class Game extends Model
         'age_fk'
     ];
 
-    public function purchases()
+    public function reservations()
     {
-        return $this->hasMany(Purchases::class);
+        return $this->hasMany(Reservation::class);
     }
 
-    public function users()
-{
-    return $this->belongsToMany(User::class, 'purchases', 'game_id', 'user_id');
-}
+    public function reservedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'reservations', 'game_id', 'user_id')
+                    ->withPivot('reservation_date', 'status')
+                    ->withTimestamps();
+    }
+
+
+    public function purchasedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'purchases', 'game_id', 'user_id');
+    }
 
 
     protected $primaryKey = 'game_id';
@@ -43,5 +51,10 @@ class Game extends Model
     public function age()
     {
         return $this->belongsTo(Age::class, 'age_fk', 'age_id');
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 }
