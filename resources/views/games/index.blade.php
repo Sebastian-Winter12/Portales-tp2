@@ -28,7 +28,7 @@
                     </tr>
                     @foreach ($games as $game)
                         <tr>
-                            <td class="align-top">{{ $game->game_id }}</td>
+                            <td class="align-top">{{ $game->id }}</td>
                             @if ($game->image)
                                 <td class="align-top"><img src="{{ Storage::url($game->image) }}" class="card-img-top"
                                 alt="{{ $game->title }}" class="img-fluid" 
@@ -44,13 +44,13 @@
                             <td class="align-top">{{ $game->game_type }}</td>
                             <td>{{ $game->age->name }}</td>
                             <td class="align-top">
-                                <a href="{{ route('games.view', ['id' => $game->game_id]) }}" 
+                                <a href="{{ route('games.view', ['id' => $game->id]) }}" 
                                 class="btn btn-primary">Ver</a>
                                 @auth
-                                    <a href="{{ route('games.edit.form', ['id' => $game->game_id]) }}" 
+                                    <a href="{{ route('games.edit.form', ['id' => $game->id]) }}" 
                                     class="btn btn-secondary ms-2">Editar</a>
 
-                                    <form action="{{ route('games.delete.process', ['id' => $game->game_id]) }}" method="post">
+                                    <form action="{{ route('games.delete.process', ['id' => $game->id]) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <input type="submit" onclick="return confirm('Está seguro de borrar el videojuego?')"

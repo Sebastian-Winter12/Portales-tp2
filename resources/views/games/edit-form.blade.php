@@ -15,7 +15,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('games.edit.process', ['id' => $game->game_id]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('games.edit.process', ['id' => $game->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 

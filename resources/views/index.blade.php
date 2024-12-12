@@ -54,7 +54,7 @@
                     <p><strong>Fecha de lanzamiento:</strong> {{ $games[0]->release_date }}</p>
                     <p><strong>Tipo de juego:</strong> {{ $games[0]->game_type }}</p>
                     <p><strong>Clasificación:</strong> {{ $games[0]->age->name }}</p>
-                    <a href="{{ route('games.view', ['id' => $games[0]->game_id]) }}" 
+                    <a href="{{ route('games.view', ['id' => $games[0]->id]) }}" 
                         class="btn btn-primary">Saber más</a>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                             <h5 class="card-title">{{ $game->title }}</h5>
                             <p class="card-text">{{ $game->synopsis }}</p>
                             <div class="d-flex justify-content-center">
-                               <a href="{{ route('games.view', ['id' => $game->game_id]) }}" 
+                               <a href="{{ route('games.view', ['id' => $game->id]) }}" 
                                 class="btn btn-primary">Saber más</a>
                             </div>
                         </div>

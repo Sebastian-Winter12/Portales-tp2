@@ -28,7 +28,7 @@ class GamesController extends Controller
     }
 
 
-    public function view(int $id)
+    public function view($id)
     {
         $game = Game::with('age')->findOrFail($id);
 
@@ -109,7 +109,8 @@ class GamesController extends Controller
             'release_date' => 'required|date',
             'synopsis' => 'required|min:3|max:255',
             'game_type' => 'required|in:Un solo jugador,Multijugador,Cooperativo',
-            'image' => 'nullable|image|max:5000'
+            'image' => 'nullable|image|max:5000',
+            'age_fk' => 'required|exists:ages,age_id'
         ], [
             'title.required' => 'El título debe tener un valor',
             'price.required' => 'El precio debe tener un valor',
@@ -118,10 +119,11 @@ class GamesController extends Controller
             'game_type.required' => 'El tipo de juego debe ser seleccionado',
             'game_type.in' => 'El tipo de juego debe ser uno de los siguientes: Un solo jugador, Multijugador, Cooperativo',
             'image.image' => 'El archivo debe ser una imagen.',
-            'image.max' => 'La imagen no puede exceder los 2MB.'
+            'image.max' => 'La imagen no puede exceder los 2MB.',
+            'age_fk.required' => 'La clasificación por edad debe ser seleccionada'
         ]);
 
-        $input = $request->only(['title', 'price', 'release_date', 'synopsis', 'game_type']);
+        $input = $request->only(['title', 'price', 'release_date', 'synopsis', 'game_type', 'age', 'age_id', 'age_fk']);
 
         $game = Game::findOrFail($id);
 

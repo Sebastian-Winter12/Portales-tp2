@@ -31,7 +31,7 @@
 
             @if (auth()->check())
                 <form
-                    action="{{ route('games.reservation.process', ['id' => $game->game_id]) }}"
+                    action="{{ route('games.reservation.process', ['id' => $game->id]) }}"
                     method="POST">
                     @csrf
                     <button type="submit" class="btn btn-warning">Comprar</button>
