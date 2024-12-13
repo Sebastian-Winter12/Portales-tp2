@@ -85,10 +85,6 @@ Route::get('usuarios/{id}', [App\Http\Controllers\UsersController::class, "view"
     ->name('users.view')
     ->whereNumber('id');
 
-Route::get('usuarios/crear', [App\Http\Controllers\UsersController::class, 'createForm'])
-    ->name('users.create.form')
-    ->middleware('auth');
-
 Route::get('usuarios/{id}/editar', [App\Http\Controllers\UsersController::class, "editForm"])
     ->name('users.edit.form')
     ->whereNumber('id')
@@ -103,6 +99,7 @@ Route::delete('usuarios/{id}/eliminar', [App\Http\Controllers\UsersController::c
     ->name('users.delete.process')
     ->whereNumber('id')
     ->middleware('auth');
+
 // Autenticacion
 
 Route::get('/iniciar-sesion', [App\Http\Controllers\AuthController::class, "loginForm"])
@@ -110,6 +107,12 @@ Route::get('/iniciar-sesion', [App\Http\Controllers\AuthController::class, "logi
 
 Route::post('/iniciar-sesion', [App\Http\Controllers\AuthController::class, "loginProcess"])
     ->name('auth.login.process');
+
+Route::get('/usuarios/crear', [App\Http\Controllers\UsersController::class, 'createForm'])
+    ->name('auth.create');
+
+Route::post('/usuarios/crear', [App\Http\Controllers\UsersController::class, 'createProcess'])
+    ->name('auth.create.process');
 
 Route::post('/cerrar-sesion', [App\Http\Controllers\AuthController::class, "logoutProcess"])
     ->name('auth.logout.process');

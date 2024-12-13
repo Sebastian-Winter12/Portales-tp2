@@ -12,15 +12,15 @@
                     @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" class="form-controll" value="{{ old('email') }}">
+                        <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" id="password" name="password" class="form-controll">
+                        <input type="password" id="password" name="password" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary">Ingresar</button>
-                    <a href="{{ route('users.create.form') }}" class="btn btn-primary">Crear Usuario</a>
+                    <a href="{{ route('auth.create') }}" class="btn btn-primary">Crear Usuario</a>
                 </form>
             </div>
         </div>

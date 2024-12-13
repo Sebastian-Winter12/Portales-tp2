@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -29,31 +30,35 @@ class UsersController extends Controller
 
     public function createForm()
     {
-        return view('users.create');
+        return view('auth.create');
     }
 
     public function createProcess(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|min:3|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
-        ], [
-            'name.required' => 'El nombre es obligatorio.',
-            'email.required' => 'El correo electrónico es obligatorio.',
-            'email.unique' => 'El correo electrónico ya está en uso.',
-            'password.required' => 'La contraseña es obligatoria.',
-            'password.confirmed' => 'Las contraseñas no coinciden.',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|min:3|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:6|confirmed',
+    ], [
+        'name.required' => 'El nombre es obligatorio.',
+        'email.required' => 'El correo electrónico es obligatorio.',
+        'email.unique' => 'El correo electrónico ya está en uso.',
+        'password.required' => 'La contraseña es obligatoria.',
+        'password.confirmed' => 'Las contraseñas no coinciden.',
+    ]);
 
-        $input = $request->only(['name', 'email', 'password']);
-        $input['password'] = Hash::make($input['password']);
-        $user = User::create($input);
+    // Eliminar dd() después de verificar los datos
+    $input = $request->only(['name', 'email', 'password']);
+    $input['password'] = Hash::make($input['password']);
+    $user = User::create($input);
 
-        return redirect()
-        ->route('users.view', ['id' => $user->id])
-        ->with('feedback.message', 'El usuario se creó con éxito.');
-    }
+    Auth::login($user);
+
+    return redirect()->route('home')->with('feedback.message', 'El usuario se creó con éxito.');
+}
+
+
+
 
     public function editForm(int $id)
     {
