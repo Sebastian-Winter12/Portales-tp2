@@ -29,7 +29,7 @@ class UsersController extends Controller
 
     public function createForm()
     {
-        return redirect()->route('users.create.form');
+        return view('users.create');
     }
 
     public function createProcess(Request $request)
