@@ -104,4 +104,14 @@ class UsersController extends Controller
             ->route('users.index')
             ->with('feedback.message', 'El usuario se eliminó con éxito.');
     }
+
+    public function Profile(int $id)
+{
+    $user = User::findOrFail($id);
+
+    return view('profile.profile', [
+        'user' => $user
+    ]);
+}
+
 }

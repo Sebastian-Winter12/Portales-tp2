@@ -100,6 +100,11 @@ Route::delete('usuarios/{id}/eliminar', [App\Http\Controllers\UsersController::c
     ->whereNumber('id')
     ->middleware('auth');
 
+Route::get('usuarios/{id}/perfil', [App\Http\Controllers\UsersController::class, "Profile"])
+    ->name('profile.profile')
+    ->whereNumber('id');
+
+
 // Autenticacion
 
 Route::get('/iniciar-sesion', [App\Http\Controllers\AuthController::class, "loginForm"])
