@@ -33,12 +33,11 @@ class User extends Authenticatable
     }
 
     public function reservedGames()
-{
-    return $this->belongsToMany(Game::class, 'reservations', 'user_id', 'game_id')
-                ->withPivot('reservation_date', 'status')
-                ->withTimestamps();
-}
-
+    {
+        return $this->belongsToMany(Game::class, 'reservations', 'user_id', 'game_id')
+                    ->withPivot('reservation_date', 'status')
+                    ->withTimestamps();
+    }
 
     /**
      * The attributes that should be hidden for serialization.

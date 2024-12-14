@@ -34,31 +34,27 @@ class UsersController extends Controller
     }
 
     public function registerProcess(Request $request)
-{
-    $request->validate([
-        'name' => 'required|min:3|max:255',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|min:6|confirmed',
-    ], [
-        'name.required' => 'El nombre es obligatorio.',
-        'email.required' => 'El correo electrónico es obligatorio.',
-        'email.unique' => 'El correo electrónico ya está en uso.',
-        'password.required' => 'La contraseña es obligatoria.',
-        'password.confirmed' => 'Las contraseñas no coinciden.',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+        ], [
+            'name.required' => 'El nombre es obligatorio.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'email.unique' => 'El correo electrónico ya está en uso.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.confirmed' => 'Las contraseñas no coinciden.',
+        ]);
 
-    // Eliminar dd() después de verificar los datos
-    $input = $request->only(['name', 'email', 'password']);
-    $input['password'] = Hash::make($input['password']);
-    $user = User::create($input);
+        $input = $request->only(['name', 'email', 'password']);
+        $input['password'] = Hash::make($input['password']);
+        $user = User::create($input);
 
-    Auth::login($user);
+        Auth::login($user);
 
-    return redirect()->route('home')->with('feedback.message', 'El usuario se creó con éxito.');
-}
-
-
-
+        return redirect()->route('home')->with('feedback.message', 'El usuario se creó con éxito.');
+    }
 
     public function editForm(int $id)
     {
