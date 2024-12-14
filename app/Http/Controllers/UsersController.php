@@ -38,7 +38,7 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:3|confirmed',
         ], [
             'name.required' => 'El nombre es obligatorio.',
             'email.required' => 'El correo electrónico es obligatorio.',
