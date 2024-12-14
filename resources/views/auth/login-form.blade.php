@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'autenticacion')
+@section('title', 'Iniciar sesión')
 
 @section('content')
 
@@ -20,7 +20,7 @@
                         <input type="password" id="password" name="password" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary">Ingresar</button>
-                    <a href="{{ route('auth.create') }}" class="btn btn-primary">Crear Usuario</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary">Crear Usuario</a>
                 </form>
             </div>
         </div>

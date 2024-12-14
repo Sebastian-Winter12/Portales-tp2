@@ -10,7 +10,7 @@
             <x-nav></x-nav>
             <h1 class="text-center mb-3">Listado de usuarios</h1>
             <div class="mb-3 text-center">
-                <a class="bg-primary text-white text-decoration-none px-3 py-2 border rounded" href="{{ route('auth.create') }}"> Crear nuevo usuario </a>
+                <a class="bg-primary text-white text-decoration-none px-3 py-2 border rounded" href="{{ route('register') }}"> Crear nuevo usuario</a>
             </div>
 
             <table class="table table-bordered table-striped">

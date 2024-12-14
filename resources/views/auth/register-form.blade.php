@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'autenticacion')
+@section('title', 'Crear cuenta')
 
 @section('content')
 
@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="mb-3">Crear mi cuenta</h1>
-                <form action="{{ route('auth.create.process') }}" method="POST">
+                <form action="{{ route('auth.register.process') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="text" class="form-label">Nombre</label>

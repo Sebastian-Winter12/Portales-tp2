@@ -28,12 +28,12 @@ class UsersController extends Controller
         ]);
     }
 
-    public function createForm()
+    public function registerForm()
     {
-        return view('auth.create');
+        return view('auth.register-form');
     }
 
-    public function createProcess(Request $request)
+    public function registerProcess(Request $request)
 {
     $request->validate([
         'name' => 'required|min:3|max:255',

@@ -108,11 +108,11 @@ Route::get('/iniciar-sesion', [App\Http\Controllers\AuthController::class, "logi
 Route::post('/iniciar-sesion', [App\Http\Controllers\AuthController::class, "loginProcess"])
     ->name('auth.login.process');
 
-Route::get('/usuarios/crear', [App\Http\Controllers\UsersController::class, 'createForm'])
-    ->name('auth.create');
+Route::get('/crear-cuenta', [App\Http\Controllers\UsersController::class, 'registerForm'])
+    ->name('register');
 
-Route::post('/usuarios/crear', [App\Http\Controllers\UsersController::class, 'createProcess'])
-    ->name('auth.create.process');
+Route::post('/crear-cuenta', [App\Http\Controllers\UsersController::class, 'registerProcess'])
+    ->name('auth.register.process');
 
 Route::post('/cerrar-sesion', [App\Http\Controllers\AuthController::class, "logoutProcess"])
     ->name('auth.logout.process');
