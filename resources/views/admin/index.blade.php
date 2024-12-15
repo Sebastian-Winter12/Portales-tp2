@@ -10,6 +10,37 @@
             <x-nav></x-nav>
             <h1 class="text-center mb-3">Vista de administrador</h1>
 
+            {{-- Dashboard --}}
+            <h3 class="text-center mb-4">Dashboard</h3>
+            <div class="row">
+                <!-- Total de juegos vendidos y ganancias -->
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            Juegos comprados y Ganancia generada
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Total de juegos vendidos:</strong> </p>
+                            <p><strong>Ganancia generada:</strong> $</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total de usuarios y su división entre admin y user -->
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            Usuarios registrados
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Total de usuarios:</strong> </p>
+                            <p><strong>Admins:</strong> </p>
+                            <p><strong>Usuarios comunes:</strong> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{-- Usuarios --}}
             <h2 class="text-center mb-3 mt-5">Listado de usuarios</h2>
             <div class="mb-3 text-center">
@@ -80,7 +111,7 @@
                                 alt="{{ $game->title }}" class="img-fluid" 
                                 style="width: 150px; height: 80px; object-fit: cover;"></td>
                                 @else
-                                <p>No hay protada</p>
+                                <p>No hay portada</p>
                             @endif
                             
                             <td class="align-top">{{ $game->title }}</td>
@@ -108,7 +139,6 @@
                     @endforeach                    
                 </thead>
             </table>
-
 
             {{-- Noticias --}}
             <h2 class="text-center mb-3 mt-5">Nuestras noticias</h2>

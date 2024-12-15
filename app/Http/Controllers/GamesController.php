@@ -224,4 +224,6 @@ protected function handleImageUpload(Request $request, $existingImage = null)
 
         return redirect()->route('games.index')->with('success', 'Juego actualizado con éxito');
     }
+
+    
 }
