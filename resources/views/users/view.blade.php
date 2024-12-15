@@ -15,6 +15,10 @@
                 <dd>{{ $user->name }}</dd>
                 <dt>Email</dt>
                 <dd>{{ $user->email }}</dd>
+                <dt>Contraseña</dt>
+                <dd>{{ $user->password }}</dd>
+                <dt>Id</dt>
+                <dd>{{ $user->id }}</dd>                
                 <dt>Rol</dt>
                 <dd>{{ $user->role }}</dd>
             </dl>

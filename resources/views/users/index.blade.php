@@ -20,23 +20,21 @@
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Contraseña</th>
-                        <th>Rol</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
-                            <td class="align-top">{{ $user->id }}</td> <!-- Cambiado user_id a id -->
+                            <td class="align-top">{{ $user->id }}</td>
                             <td class="align-top">{{ $user->name }}</td>
                             <td class="align-top">{{ $user->email }}</td>
-                            <td class="align-top">******</td> <!-- Ocultar la contraseña -->
-                            <td class="align-top">{{ $user->role }}</td>
+                            <td class="align-top">******</td>
                             <td class="align-top">
                                 <a href="{{ route('users.view', ['id' => $user->id]) }}"
                                    class="btn btn-primary">Ver</a>
                                 @auth
-                                    <a href="{{ route('users.edit.form', ['id' => $user->id]) }}"
+                                    <a href="{{ route('users.edit-form', ['id' => $user->id]) }}"
                                        class="btn btn-secondary ms-2">Editar</a>
 
                                     <form action="{{ route('users.delete.process', ['id' => $user->id]) }}" method="post">

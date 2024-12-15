@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
@@ -71,13 +72,11 @@ class UsersController extends Controller
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|min:6|confirmed',
-            'role' => 'required|in:user,admin',
         ], [
             'name.required' => 'El nombre es obligatorio.',
             'email.required' => 'El correo electrónico es obligatorio.',
+            'email.unique' => 'El correo electrónico ya está en uso.',
             'password.confirmed' => 'Las contraseñas no coinciden.',
-            'role.required' => 'El rol es obligatorio.',
-            'role.in' => 'El rol debe ser "user" o "admin".',
         ]);
 
         $user = User::findOrFail($id);
@@ -90,9 +89,10 @@ class UsersController extends Controller
 
         $user->update($input);
 
-        return redirect()
-        ->route('users.view', ['id' => $user->id])
-            ->with('feedback.message', 'El usuario se editó con éxito.');
+        $redirectUrl = $request->input('redirect_url', route('user.profile', ['id' => $user->id]));
+
+        return redirect($redirectUrl)
+        ->with('feedback.message', 'El usuario se editó con éxito.');
     }
 
     public function deleteProcess(int $id)
@@ -106,11 +106,14 @@ class UsersController extends Controller
     }
 
     public function profile(int $id)
-    {
-        $user = User::findOrFail($id);
+{
+    $user = User::findOrFail($id);
+    $games = Game::all();
 
-        return view('profile.profile', [
-            'user' => $user
-        ]);
-    }
+    return view('profile.profile', [
+        'user' => $user,
+        'games' => $games
+    ]);
+}
+
 }

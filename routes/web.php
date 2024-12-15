@@ -86,7 +86,7 @@ Route::get('usuarios/{id}', [App\Http\Controllers\UsersController::class, "view"
     ->whereNumber('id');
 
 Route::get('usuarios/{id}/editar', [App\Http\Controllers\UsersController::class, "editForm"])
-    ->name('users.edit.form')
+    ->name('users.edit-form')
     ->whereNumber('id')
     ->middleware('auth');
 
@@ -100,13 +100,12 @@ Route::delete('usuarios/{id}/eliminar', [App\Http\Controllers\UsersController::c
     ->whereNumber('id')
     ->middleware('auth');
 
-// Ruta a modificar
 
+    // Perfil
 Route::get('/perfil/{id}', [App\Http\Controllers\UsersController::class, "profile"])
     ->name('user.profile')
     ->whereNumber('id');
 
-// La ruta de arriba es la que hay que modificar
 
 // Autenticacion
 
