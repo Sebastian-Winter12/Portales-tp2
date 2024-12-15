@@ -24,7 +24,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('user.profile', ['id' => auth()->user()->id]) }}">Perfil</a>
+                        <a class="nav-link" href="{{ route('user.profile', ['id' => auth()->user()->id]) }}">Perfil</a>
                     </li>
 
                     @guest
