@@ -19,13 +19,13 @@
                         <x-nav-link route="games.index">Videojuegos</x-nav-link>
                     </li>
 
-                    <li class="nav-item">
-                        <x-nav-link route="users.index">Usuarios</x-nav-link>
-                    </li>
-
                     @auth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.profile', ['id' => auth()->user()->id]) }}">Perfil</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.index', ['id' => auth()->user()->id]) }}">Admin</a>
                     </li>
                     @endauth
 

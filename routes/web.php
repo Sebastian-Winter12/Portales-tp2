@@ -132,3 +132,8 @@ Route::post('/videojuegos/{id}/reservar', [App\Http\Controllers\GamesReservation
 
 Route::get('/test/emails/reservar-videojuegos', [App\Http\Controllers\GamesReservationController::class, "printEmail"])
     ->name('games.reservation.test');
+
+// Admin
+Route::get('/admin', [App\Http\Controllers\AdminController::class, "index"])
+    ->name('admin.index')
+    ->middleware('auth');

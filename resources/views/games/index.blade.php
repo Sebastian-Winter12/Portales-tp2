@@ -9,65 +9,28 @@
         <div class="col-12">
             <x-nav></x-nav>
             <h1 class="text-center mb-3">Listado de videojuegos</h1>
-            <div class="mb-3 text-center">
-                <a class="bg-primary text-white text-decoration-none px-3 py-2 border rounded " href="{{ route('games.create.form') }}"> Publicar un nuevo juego </a>
-            </div>
             
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Imagen</th>
-                        <th>Título</th>
-                        <th>Fecha de estreno</th>
-                        <th>Precio</th>
-                        <th>Sinopsis</th>
-                        <th>Modo de juego</th>
-                        <th>Clasificación</th>
-                        <th>Acciones</th>
-                    </tr>
-                    @foreach ($games as $game)
-                        <tr>
-                            <td class="align-top">{{ $game->id }}</td>
-                            @if ($game->image)
-                                <td class="align-top"><img src="{{ Storage::url($game->image) }}" class="card-img-top"
-                                alt="{{ $game->title }}" class="img-fluid" 
-                                style="width: 150px; height: 80px; object-fit: cover;"></td>
-                                @else
-                                <p>No hay protada</p>
-                            @endif
-                            
-                            <td class="align-top">{{ $game->title }}</td>
-                            <td class="align-top">{{ $game->release_date }}</td>
-                            <td class="align-top">{{ $game->price }}</td>
-                            <td class="align-top">{{ $game->synopsis }}</td>
-                            <td class="align-top">{{ $game->game_type }}</td>
-                            <td>{{ $game->age->name }}</td>
-                            <td class="align-top">
-                                <a href="{{ route('games.view', ['id' => $game->id]) }}" 
-                                class="btn btn-primary">Ver</a>
-                                @auth
-                                    <a href="{{ route('games.edit.form', ['id' => $game->id]) }}" 
-                                    class="btn btn-secondary ms-2">Editar</a>
-
-                                    <form action="{{ route('games.delete.process', ['id' => $game->id]) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" onclick="return confirm('Está seguro de borrar el videojuego?')"
-                                            class="btn btn-danger ms-2" value="Eliminar">
-                                    </form>
-                                @endauth
-                            </td>
-                        </tr>
-                    @endforeach
-
-                    
-                </thead>
-            </table>
+            <div class="row">
+                @foreach ($games as $game)
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100">
+                            <img src="{{ Storage::url($game->image) }}" class="card-img-top img-fluid"
+                                 alt="{{ $game->title }}"
+                                 style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $game->title }}</h5>
+                                <p class="card-text">{{ $game->synopsis }}</p>
+                                <p><strong>Precio:</strong> ${{ $game->price }}</p>
+                                <div class="d-flex justify-content-center mt-auto">
+                                    <a href="{{ route('games.view', ['id' => $game->id]) }}" class="btn btn-primary">Saber más</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 </div>
-
-
 
 @endsection
