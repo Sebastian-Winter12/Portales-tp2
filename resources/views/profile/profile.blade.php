@@ -20,6 +20,16 @@
             </div>
 
             <h2 class="mb-3">Compras realizadas</h2>
+            @php
+                $totalGames = $user->reservations->count();
+                $totalSpent = $user->reservations->sum(fn($reservation) => $reservation->game->price);
+            @endphp
+
+            <div class="mb-3">
+                <strong>Total de juegos comprados:</strong> {{ $totalGames }}<br>
+                <strong>Total gastado:</strong> ${{ number_format($totalSpent, 2) }}
+            </div>
+            
             @if ($user->reservations->isEmpty())
                 <p class="text-muted">No hay compras registradas.</p>
             @else

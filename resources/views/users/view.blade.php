@@ -25,9 +25,21 @@
             @if ($user->reservations->isEmpty())
                 <p class="text-muted">No hay compras registradas.</p>
             @else
+                @php
+                    // Calcular el total de juegos y el gasto total
+                    $totalGames = $user->reservations->count();
+                    $totalSpent = $user->reservations->sum(fn($reservation) => $reservation->game->price);
+                @endphp
+
+                <!-- Mostrar el total de juegos y el gasto total -->
+                <div class="mb-3">
+                    <strong>Total de juegos comprados:</strong> {{ $totalGames }}<br>
+                    <strong>Total gastado:</strong> ${{ number_format($totalSpent, 2) }}
+                </div>
+
+                <!-- Listar los juegos comprados -->
                 <ul class="list-group">
                     @foreach ($user->reservations as $reservation)
-                    {{-- {{ dd($reservation) }} --}}
                         <li class="list-group-item">
                             <strong>{{ $reservation->game->title }}</strong> -
                             ${{ number_format($reservation->game->price, 2) }}
@@ -38,4 +50,5 @@
         </div>
     </div>
 </div>
+
 @endsection
