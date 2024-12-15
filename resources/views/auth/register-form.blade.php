@@ -6,6 +6,9 @@
 
     <div class="container">
         <div class="row">
+            <div class="mt-3">
+                <a href="{{ route('home') }}" class="btn btn-secondary">Volver a Inicio</a>
+            </div>
             <div class="col-12">
                 <h1 class="mb-3">Crear mi cuenta</h1>
                 <form action="{{ route('auth.register.process') }}" method="POST">

@@ -33,7 +33,7 @@
                 </ul>
             @endif
 
-            <div class="mb-3 text-center">
+            <div class="mt-5 mb-3 text-center">
                 <form action="{{ route('auth.logout.process') }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-danger px-4 py-2">Cerrar sesión</button>

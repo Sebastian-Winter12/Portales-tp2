@@ -23,9 +23,11 @@
                         <x-nav-link route="users.index">Usuarios</x-nav-link>
                     </li>
 
+                    @auth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.profile', ['id' => auth()->user()->id]) }}">Perfil</a>
                     </li>
+                    @endauth
 
                     @guest
                         <li class="nav-item">

@@ -34,7 +34,7 @@
                     action="{{ route('games.reservation.process', ['id' => $game->id]) }}"
                     method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-warning">Comprar</button>
+                    <button type="submit" class="mt-3 mb-5 btn btn-warning">Comprar</button>
                 </form>
             @else
                 <p class="text-muted">Debes <a href="{{ route('login') }}">iniciar sesión</a> para comprar este videojuego.</p>
