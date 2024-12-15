@@ -100,10 +100,13 @@ Route::delete('usuarios/{id}/eliminar', [App\Http\Controllers\UsersController::c
     ->whereNumber('id')
     ->middleware('auth');
 
-Route::get('usuarios/{id}/perfil', [App\Http\Controllers\UsersController::class, "Profile"])
+// Ruta a modificar
+
+Route::get('/perfil/{id}', [App\Http\Controllers\UsersController::class, "Profile"])
     ->name('profile.profile')
     ->whereNumber('id');
 
+// La ruta de arriba es la que hay que modificar
 
 // Autenticacion
 

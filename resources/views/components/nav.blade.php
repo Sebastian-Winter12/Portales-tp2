@@ -23,12 +23,9 @@
                         <x-nav-link route="users.index">Usuarios</x-nav-link>
                     </li>
 
-                    @auth
-                        <li class="nav-item">
-                            <x-nav-link :route="route('profile.profile', ['id' => auth()->user()->id])">Perfil</x-nav-link>
-                        </li>
-                    @endauth
-
+                    <li class="nav-item">
+                        <x-nav-link :route="route('profile.profile', ['id' => $user->id])">Perfil</x-nav-link>
+                    </li>                    
 
                     @guest
                         <li class="nav-item">

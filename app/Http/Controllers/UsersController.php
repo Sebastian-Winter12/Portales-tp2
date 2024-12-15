@@ -106,12 +106,12 @@ class UsersController extends Controller
     }
 
     public function Profile(int $id)
-{
-    $user = User::findOrFail($id);
+    {
+        $user = User::findOrFail($id);
 
-    return view('profile.profile', [
-        'user' => $user
-    ]);
-}
+        return view('profile.profile', [
+            'user' => $user
+        ]);
+    }
 
 }
