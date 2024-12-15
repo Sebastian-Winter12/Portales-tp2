@@ -102,8 +102,8 @@ Route::delete('usuarios/{id}/eliminar', [App\Http\Controllers\UsersController::c
 
 // Ruta a modificar
 
-Route::get('/perfil/{id}', [App\Http\Controllers\UsersController::class, "Profile"])
-    ->name('profile.profile')
+Route::get('/perfil/{id}', [App\Http\Controllers\UsersController::class, "profile"])
+    ->name('user.profile')
     ->whereNumber('id');
 
 // La ruta de arriba es la que hay que modificar

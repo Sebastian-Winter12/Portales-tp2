@@ -105,7 +105,7 @@ class UsersController extends Controller
             ->with('feedback.message', 'El usuario se eliminó con éxito.');
     }
 
-    public function Profile(int $id)
+    public function profile(int $id)
     {
         $user = User::findOrFail($id);
 
@@ -113,5 +113,4 @@ class UsersController extends Controller
             'user' => $user
         ]);
     }
-
 }

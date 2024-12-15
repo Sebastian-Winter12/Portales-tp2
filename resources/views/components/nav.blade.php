@@ -24,8 +24,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <x-nav-link :route="route('profile.profile', ['id' => $user->id])">Perfil</x-nav-link>
-                    </li>                    
+                        <a href="{{ route('user.profile', ['id' => auth()->user()->id]) }}">Perfil</a>
+                    </li>
 
                     @guest
                         <li class="nav-item">
