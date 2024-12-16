@@ -101,7 +101,7 @@ class NewsController extends Controller
         $new->update($input);
 
         return redirect()
-            ->route('news.news')
+            ->route('admin.index')
             ->with('feedback.message', 'La noticia <b>"' . e($input['title']) . '"</b> se editó con éxito.');
     }
 

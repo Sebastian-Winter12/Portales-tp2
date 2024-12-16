@@ -13,7 +13,6 @@
             {{-- Dashboard --}}
             <h3 class="text-center mb-4">Dashboard</h3>
             <div class="row">
-                <!-- Total de juegos vendidos y ganancias -->
                 <div class="col-md-6 mb-3">
                     <div class="card">
                         <div class="card-header">
@@ -26,7 +25,6 @@
                     </div>
                 </div>
 
-                <!-- Total de usuarios y su división entre admin y user -->
                 <div class="col-md-6 mb-3">
                     <div class="card">
                         <div class="card-header">
@@ -40,12 +38,36 @@
                     </div>
                 </div>
             </div>
-
+            
             {{-- Usuarios --}}
             <h2 class="text-center mb-3 mt-5">Listado de usuarios</h2>
             <div class="mb-3 text-center">
                 <a class="bg-primary text-white text-decoration-none px-3 py-2 border rounded" href="{{ route('register') }}"> Crear nuevo usuario</a>
             </div>
+
+            <section class="mb-3 mt-4 d-flex justify-content-center align-items-center flex-column">
+                <h3>Buscador</h2>
+                <form action="{{ route('admin.index') }}" method="GET">
+                    <div class="d-flex gap-3 align-items-end mb-3">
+                        <div class="">
+                            <input type="search" name="s-name" id="s-name" class="form-control" value="{{ $searchParams['s-name'] }}" placeholder="Título">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </form>
+            </section>
+            @if (!empty($searchParams['s-name']))
+                <p class="mb-3 fst-italic">
+                    Mostrando los resultados de la búsqueda para el término: <strong>{{ $searchParams['s-name'] }}</strong>
+                </p>
+            @endif
+
+            @if ($games->isNotEmpty())
+                <table class="table table-bordered table-striped">
+                </table>
+            @else
+            <p>No se encontraron resultados con los criterios de busqueda ingresados</p>
+            @endif
 
             <table class="table table-bordered table-striped">
                 <thead>
@@ -89,6 +111,43 @@
             <div class="mb-3 text-center">
                 <a class="bg-primary text-white text-decoration-none px-3 py-2 border rounded " href="{{ route('games.create.form') }}"> Publicar un nuevo juego </a>
             </div>
+
+            <section class="mb-3 mt-4 d-flex justify-content-center align-items-center flex-column">
+                <h3>Buscador</h2>
+                <form action="{{ route('admin.index') }}" method="GET">
+                    <div class="d-flex gap-3 align-items-end mb-3">
+                        <div class="">
+                            <input type="search" name="s-title" id="s-title" class="form-control" value="{{ $searchParams['s-title'] }}" placeholder="Título">
+                        </div>
+                        <div>
+                            <label for="s-age" class="form-label">Clasificacion</label>
+                            <select name="s-age" id="s-age" class="form-control">
+                                <option value="">Todas las clasificaciones</option>
+                                @foreach ($age as $age)
+                                    <option value="{{ $age->age_id }}" @selected($age->age_id == $searchParams['s-age'])>
+                                        {{ $age->name }}
+                                    </option>
+                                    
+                                @endforeach
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </form>
+            </section>
+            @if (!empty($searchParams['s-title']))
+                <p class="mb-3 fst-italic">
+                    Mostrando los resultados de la búsqueda para el término: <strong>{{ $searchParams['s-title'] }}</strong>
+                </p>
+            @endif
+
+            @if ($games->isNotEmpty())
+                <table class="table table-bordered table-striped">
+                </table>
+                {{ $games->links() }}
+            @else
+            <p>No se encontraron resultados con los criterios de busqueda ingresados</p>
+            @endif
             
             <table class="table table-bordered table-striped">
                 <thead>
@@ -145,6 +204,30 @@
             <div class="mb-3 text-center">
                 <a class="bg-primary text-white text-decoration-none px-3 py-2 border rounded " href="{{ route('news.create.form') }}"> Publicar una nueva nota </a>
             </div>
+
+            <section class="mb-3 mt-4 d-flex justify-content-center align-items-center flex-column">
+                <h3>Buscador</h2>
+                <form action="{{ route('admin.index') }}" method="GET">
+                    <div class="d-flex gap-3 align-items-end mb-3">
+                        <div class="">
+                            <input type="search" name="s-news" id="s-news" class="form-control" value="{{ $searchParams['s-news'] }}" placeholder="Título">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </form>
+            </section>
+            @if (!empty($searchParams['s-news']))
+                <p class="mb-3 fst-italic">
+                    Mostrando los resultados de la búsqueda para el término: <strong>{{ $searchParams['s-news'] }}</strong>
+                </p>
+            @endif
+
+            @if ($games->isNotEmpty())
+                <table class="table table-bordered table-striped">
+                </table>
+            @else
+            <p>No se encontraron resultados con los criterios de busqueda ingresados</p>
+            @endif
             
             <table class="table table-bordered table-striped">
                 <thead>

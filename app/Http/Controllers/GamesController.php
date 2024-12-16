@@ -131,6 +131,7 @@ class GamesController extends Controller
             if ($game->image) {
                 Storage::disk('public')->delete($game->image);
             }
+
             $path = $request->file('image')->store('images', 'public');
             $input['image'] = $path;
         }
@@ -138,7 +139,7 @@ class GamesController extends Controller
         $game->update($input);
 
         return redirect()
-            ->route('games.index')
+            ->route('admin.index')
             ->with('feedback.message', 'El videojuego <b>"' . e($input['title']) . '"</b> se editó con éxito.');
     }
 

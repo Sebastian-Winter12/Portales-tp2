@@ -89,10 +89,10 @@ class UsersController extends Controller
 
         $user->update($input);
 
-        $redirectUrl = $request->input('redirect_url', route('user.profile', ['id' => $user->id]));
 
-        return redirect($redirectUrl)
-        ->with('feedback.message', 'El usuario se editó con éxito.');
+        return redirect()
+        ->route('admin.index')
+        ->with('feedback.message', 'El usuario <b>"' . e($input['name']) . '"</b> se editó con éxito.');
     }
 
     public function deleteProcess(int $id)

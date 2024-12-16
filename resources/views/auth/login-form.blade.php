@@ -6,7 +6,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="mt-3">
+            <div class="mt-3 mb-3">
                 <a href="{{ route('home') }}" class="btn btn-secondary">Volver a Inicio</a>
             </div>
             <div class="col-12">
