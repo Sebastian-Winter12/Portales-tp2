@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class RoleMiddleware
+class CheckRole
 {
     public function handle($request, Closure $next)
     {
@@ -13,11 +13,6 @@ class RoleMiddleware
             return $next($request);
         }
 
-        if ($request->is('videojuegos/*') || $request->is('videojuegos')) {
-            return $next($request);
-        }
-
-        return redirect()->route('home')->with('error', 'Acceso restringido.');
+        return redirect()->route('home')->with('error', 'Acceso restringido a administradores.');
     }
 }
-

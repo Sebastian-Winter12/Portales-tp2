@@ -1,11 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\RoleMiddleware;
-
-app()->singleton('role.middleware', function () {
-    return new RoleMiddleware();
-});
+use App\Http\Middleware\CheckRole;
 
 //home
 
@@ -134,6 +130,15 @@ Route::get('/test/emails/reservar-videojuegos', [App\Http\Controllers\GamesReser
     ->name('games.reservation.test');
 
 // Admin
+
+
+
+
+
+
+
+Route::prefix('admin')->middleware('auth')->group(function () {
 Route::get('/admin', [App\Http\Controllers\AdminController::class, "index"])
     ->name('admin.index')
-    ->middleware('auth');
+    ->middleware('auth');     
+});
