@@ -24,7 +24,7 @@ class AuthController extends Controller
 
         return redirect()
             ->route('games.index')
-            ->with('feedback.message', 'Inicio de sesión Exiroso ¡Bienvenido!');
+            ->with('feedback.message', 'Inicio de sesión exitoso, ¡bienvenido!');
     }
 
     public function logoutProcess(Request $request)
@@ -36,6 +36,6 @@ class AuthController extends Controller
 
         return redirect()
             ->route('login')
-            ->with('feedback.message', 'Cierre de sesion exitodo, vuelva pronto');
+            ->with('feedback.message', 'Cierre de sesión exitoso, vuelva pronto');
     }
 }

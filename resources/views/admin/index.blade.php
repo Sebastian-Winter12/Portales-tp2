@@ -19,8 +19,8 @@
                             Juegos comprados y Ganancia generada
                         </div>
                         <div class="card-body">
-                            <p><strong>Total de juegos vendidos:</strong> </p>
-                            <p><strong>Ganancia generada:</strong> $</p>
+                            <p><strong>Total de juegos vendidos: {{ $totalGamesSold }}</strong> </p>
+                            <p><strong>Ganancia generada: ${{ $totalRevenue }}</strong> </p>
                         </div>
                     </div>
                 </div>
@@ -31,14 +31,14 @@
                             Usuarios registrados
                         </div>
                         <div class="card-body">
-                            <p><strong>Total de usuarios:</strong> </p>
-                            <p><strong>Admins:</strong> </p>
-                            <p><strong>Usuarios comunes:</strong> </p>
+                            <p><strong>Total de usuarios: {{ $totalUsers }}</strong> </p>
+                            <p><strong>Admins: {{ $totalAdmins }}</strong> </p>
+                            <p><strong>Usuarios comunes: {{ $totalRegularUsers }}</strong> </p>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             {{-- Usuarios --}}
             <h2 class="text-center mb-3 mt-5">Listado de usuarios</h2>
             <div class="mb-3 text-center">
@@ -133,7 +133,7 @@
                             <button type="submit" class="btn btn-primary">Buscar</button>
                         </div>
                     </form>
-                    
+
             </section>
             @if (!empty($searchParams['s-title']))
                 <p class="mb-3 fst-italic">
@@ -148,7 +148,7 @@
             @else
             <p>No se encontraron resultados con los criterios de busqueda ingresados</p>
             @endif
-            
+
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -167,12 +167,12 @@
                             <td class="align-top">{{ $game->id }}</td>
                             @if ($game->image)
                                 <td class="align-top"><img src="{{ Storage::url($game->image) }}" class="card-img-top"
-                                alt="{{ $game->title }}" class="img-fluid" 
+                                alt="{{ $game->title }}" class="img-fluid"
                                 style="width: 150px; height: 80px; object-fit: cover;"></td>
                                 @else
                                 <p>No hay portada</p>
                             @endif
-                            
+
                             <td class="align-top">{{ $game->title }}</td>
                             <td class="align-top">{{ $game->release_date }}</td>
                             <td class="align-top">{{ $game->price }}</td>
@@ -180,10 +180,10 @@
                             <td class="align-top">{{ $game->game_type }}</td>
                             <td>{{ $game->age->name }}</td>
                             <td class="align-top">
-                                <a href="{{ route('games.view', ['id' => $game->id]) }}" 
+                                <a href="{{ route('games.view', ['id' => $game->id]) }}"
                                 class="btn btn-primary">Ver</a>
                                 @auth
-                                    <a href="{{ route('games.edit.form', ['id' => $game->id]) }}" 
+                                    <a href="{{ route('games.edit.form', ['id' => $game->id]) }}"
                                     class="btn btn-secondary ms-2">Editar</a>
 
                                     <form action="{{ route('games.delete.process', ['id' => $game->id]) }}" method="post">
@@ -195,7 +195,7 @@
                                 @endauth
                             </td>
                         </tr>
-                    @endforeach                    
+                    @endforeach
                 </thead>
             </table>
 
@@ -228,7 +228,7 @@
             @else
             <p>No se encontraron resultados con los criterios de busqueda ingresados</p>
             @endif
-            
+
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -245,16 +245,16 @@
                             <td class="align-top">{{ $new->news_id }}</td>
                             <td class="align-top">{{ $new->title }}</td>
                             <td class="align-top"><img src="{{ Storage::url($new->image) }}" class="card-img-top"
-                                alt="{{ $new->title }}" class="img-fluid" 
+                                alt="{{ $new->title }}" class="img-fluid"
                                 style="width: 150px; height: 80px; object-fit: cover;"></td>
                                 <td class="align-top">{{ $new->synopsis }}</td>
                                 <td class="align-top">{{ $new->journalist }}</td>
                             <td class="align-top">{{ $new->release_date }}</td>
                             <td class="align-top">
-                                <a href="{{ route('news.view', ['id' => $new->news_id]) }}" 
+                                <a href="{{ route('news.view', ['id' => $new->news_id]) }}"
                                 class="btn btn-primary">Ver</a>
                                 @auth
-                                    <a href="{{ route('news.edit.form', ['id' => $new->news_id]) }}" 
+                                    <a href="{{ route('news.edit.form', ['id' => $new->news_id]) }}"
                                     class="btn btn-secondary ms-2">Editar</a>
 
                                     <form action="{{ route('news.delete.process', ['id' => $new->news_id]) }}" method="post">

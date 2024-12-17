@@ -48,13 +48,28 @@ class AdminController extends Controller
         $allNews = $newsQuery->get();
         $allAge = $ageQuery->get();
 
+        $totalUsers = $usersQuery->count();
+        $totalAdmins = $usersQuery->clone()->where('role', 'admin')->count();
+        $totalRegularUsers = $usersQuery->clone()->where('role', 'user')->count();
+
+        $totalGamesSold = \App\Models\Reservation::count();
+        $totalRevenue = \App\Models\Reservation::with('game') // Asegurarse de cargar los juegos relacionados
+        ->get()
+        ->sum(function ($reservation) {
+            return $reservation->game->price; // Sumar el precio de cada juego reservado
+        });
+
         return view('admin.index', [
             'users' => $allUsers,
             'games' => $allGames,
             'news' => $allNews,
             'age' => $allAge,
-
-            'searchParams' => $searchParams
+            'searchParams' => $searchParams,
+            'totalUsers' => $totalUsers,
+            'totalAdmins' => $totalAdmins,
+            'totalRegularUsers' => $totalRegularUsers,
+            'totalGamesSold' => $totalGamesSold,
+            'totalRevenue' => $totalRevenue,
         ]);
     }
 }
