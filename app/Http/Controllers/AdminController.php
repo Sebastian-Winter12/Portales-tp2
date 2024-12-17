@@ -43,7 +43,7 @@ class AdminController extends Controller
             $gamesQuery->where('age_fk', '=', $searchParams['s-age']);
         }
 
-        $allGames = $gamesQuery->simplePaginate(2)->withQuerytString();
+        $allGames = $gamesQuery->simplePaginate(2)->withQueryString();
         $allUsers = $usersQuery->get();
         $allNews = $newsQuery->get();
         $allAge = $ageQuery->get();

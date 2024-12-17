@@ -114,26 +114,26 @@
 
             <section class="mb-3 mt-4 d-flex justify-content-center align-items-center flex-column">
                 <h3>Buscador</h2>
-                <form action="{{ route('admin.index') }}" method="GET">
-                    <div class="d-flex gap-3 align-items-end mb-3">
-                        <div class="">
-                            <input type="search" name="s-title" id="s-title" class="form-control" value="{{ $searchParams['s-title'] }}" placeholder="Título">
+                    <form id="search-form">
+                        <div class="d-flex gap-3 align-items-end mb-3">
+                            <div>
+                                <input type="search" name="s-title" id="s-title" class="form-control" value="{{ $searchParams['s-title'] }}" placeholder="Título">
+                            </div>
+                            <div>
+                                <label for="s-age" class="form-label">Clasificación</label>
+                                <select name="s-age" id="s-age" class="form-control">
+                                    <option value="">Todas las clasificaciones</option>
+                                    @foreach ($age as $age)
+                                        <option value="{{ $age->age_id }}" @selected($age->age_id == $searchParams['s-age'])>
+                                            {{ $age->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Buscar</button>
                         </div>
-                        <div>
-                            <label for="s-age" class="form-label">Clasificacion</label>
-                            <select name="s-age" id="s-age" class="form-control">
-                                <option value="">Todas las clasificaciones</option>
-                                @foreach ($age as $age)
-                                    <option value="{{ $age->age_id }}" @selected($age->age_id == $searchParams['s-age'])>
-                                        {{ $age->name }}
-                                    </option>
-                                    
-                                @endforeach
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Buscar</button>
-                    </div>
-                </form>
+                    </form>
+                    
             </section>
             @if (!empty($searchParams['s-title']))
                 <p class="mb-3 fst-italic">
