@@ -130,15 +130,24 @@ Route::get('/test/emails/reservar-videojuegos', [App\Http\Controllers\GamesReser
     ->name('games.reservation.test');
 
 // Admin
-
-
-
-
-
-
-
 Route::prefix('admin')->middleware('auth')->group(function () {
 Route::get('/admin', [App\Http\Controllers\AdminController::class, "index"])
     ->name('admin.index')
     ->middleware('auth');     
 });
+
+//Rutas de mercadopago
+Route::get('test/mercadopago', [App\Http\Controllers\MercadoPagoController::class, "show"])
+    ->name('test.mercadopago.show');
+
+Route::get('test/mercadopago/v2', [App\Http\Controllers\MercadoPagoController::class, "showV2"])
+    ->name('test.mercadopago.show.v2');
+    
+Route::get('test/mercadopago/success', [App\Http\Controllers\MercadoPagoController::class, "successProcess"])
+    ->name('test.mercadopago.successProcess');
+
+Route::get('test/mercadopago/pending', [App\Http\Controllers\MercadoPagoController::class, "pendingProcess"])
+    ->name('test.mercadopago.pendingProcess');
+
+Route::get('test/mercadopago/failure', [App\Http\Controllers\MercadoPagoController::class, "failureProcess"])
+    ->name('test.mercadopago.failureProcess');
