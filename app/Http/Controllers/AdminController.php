@@ -53,10 +53,10 @@ class AdminController extends Controller
         $totalRegularUsers = $usersQuery->clone()->where('role', 'user')->count();
 
         $totalGamesSold = \App\Models\Reservation::count();
-        $totalRevenue = \App\Models\Reservation::with('game') // Asegurarse de cargar los juegos relacionados
+        $totalRevenue = \App\Models\Reservation::with('game')
         ->get()
         ->sum(function ($reservation) {
-            return $reservation->game->price; // Sumar el precio de cada juego reservado
+            return $reservation->game->price;
         });
 
         return view('admin.index', [
