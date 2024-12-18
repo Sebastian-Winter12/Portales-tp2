@@ -26,7 +26,7 @@ class MercadoPagoPayment
 
         if(strlen($this->accessToken) === 0 ) throw new \Exception('No esta definido el token de acceso de Mercado Pago. Creá la clave MERCADOPAGO_ACCESS_TOKEN en tu archivo [.env].');
         if(strlen($this->publicKey) === 0) throw new \Exception('No esta definida la clave pública de Mercado Pago. Creá la clave MERCADOPAGO_PUBLIC_KEY en tu archivo [.env].');
-        
+
         MercadoPagoConfig::setAccessToken($this->accessToken);
     }
 
