@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('game_id')->constrained('games', 'id')->onDelete('cascade');
-            $table->timestamp('reserved_at')->nullable(); // Fecha de reservación
+            $table->timestamp('reserved_at')->nullable();
             $table->timestamps();
         });
     }

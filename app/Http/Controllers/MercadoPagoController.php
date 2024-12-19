@@ -53,12 +53,8 @@ class MercadoPagoController extends Controller
     public function showV2()
     {
 
-        // Buscamos un par de películas simulando un carrito de compras. Esto es lo que vamos
-        // para "cobrar" con Mercado Pago.
         $games = Game::whereIn('id', [1, 3])->get();
 
-        // Integración con Mercado Pago.
-        // Preparamos un array con los datos de los ítems con el formato que pide Mercado Pago.
         $items = [];
 
         foreach($games as $game) {
@@ -88,7 +84,6 @@ class MercadoPagoController extends Controller
         return view('test.mercadopago', [
             'games' => $games,
             'preference' => $preference,
-            // Pasamos la clave pública para poder agregarla en la conexión de JS.
             'mpPublicKey' => $payment->getPublicKey(),
         ]);
 
